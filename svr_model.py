@@ -4,11 +4,12 @@ from werkzeug import secure_filename
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploaded'
+im_path = 'img.png'
 
 # @app.route("/prediction", methods=['GET'])
 def mask(): 
     model = MaskModel()
-    img = model.get_prediction("C:\\Users\\Admin\\Desktop\\project AI\\images\\12283150_12d37e6389_z.jpg")
+    img = model.get_prediction(im_path)
     return(img)
 
 @app.route("/save", methods=['GET'])
