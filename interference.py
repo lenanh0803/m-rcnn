@@ -15,6 +15,11 @@ ROOT_DIR = os.getcwd()
 sys.path.append(ROOT_DIR)
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 
+sys.path.append(os.path.join(ROOT_DIR, "samples/coco/"))  # To find local version
+
+# Local path to trained weights file
+COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
+
 class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
                'bus', 'train', 'truck', 'boat', 'traffic light',
                'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird',
@@ -42,6 +47,11 @@ class MaskModel():
     def __init__(self) -> None: 
         #load weight
         self.get_prediction()
+        self.load_weight()
+    
+    def load_weight(self):
+        if not os.path.exists(COCO_MODEL_PATH):
+           utils.download_trained_weights(COCO_MODEL_PATH)
 
     def get_prediction(self, image_path):
         #load model
